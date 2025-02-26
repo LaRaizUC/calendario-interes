@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Calendar Link</title>
+    <script>
+        function copyCalendarLink() {
+            const calendarURL = "https://calendar.google.com/calendar/ical/0evc8qu50rq0r7dj5mm10t2vg0%40group.calendar.google.com/public/basic.ics"; // Replace with your actual calendar URL
+            navigator.clipboard.writeText(calendarURL).then(() => {
+                alert("📅 Link del calendario copiado al portapapeles!");
+                window.location.href = "https://linktr.ee/LaRaiz"; // Redirect back to Linktree
+            });
+        }
+    </script>
+</head>
+<body onload="copyCalendarLink()">
+    <p>Copying calendar link...</p>
+</body>
+</html>
