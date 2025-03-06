@@ -3,18 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copy Calendar Link</title>
+    <title>Calendarios LR</title>
+    <style>
+        body {
+            background-color:   #61b292;
+        }
+
+        p, ul {
+            color: #f9f9f9;
+            font-family: Verdana, sans-serif;
+            font-size:  large;
+            text-align: justify;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        li p {
+            margin-left: 0;
+            font-size: medium;
+            font-weight: normal;
+            margin-top: 10px;
+        }
+
+        .dropdown-content {
+            display: none; /* Hidden by default */
+            padding: 10px;
+            background-color: lightgray;
+            margin-top: 5px;
+        }
+        
+        /* Optional: Styling for the button */
+        .dropdown-btn {
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 200px;
+            text-align: center;
+        }
+
+        /* Optional: Change button color on hover */
+        .dropdown-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling the "bubble" */
+        .url-bubble {
+            display: flex;
+            align-items: center;
+            background-color: #f1e8a7;
+            padding: 10px;
+            border-radius: 17px;
+            width: fit-content;
+            max-width: 100%;
+            margin: 10px auto;
+            font-size: 16px;
+            font-family: Verdana, sans-serif;
+            gap: 5px;
+        }
+
+        .url-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            padding: 5px 5px;
+        }
+
+        .url-text {
+            border: none;
+            background: none;
+            font-size: 16px;
+            cursor: text;
+            width: 250px; /* Adjust width as needed */
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: bold;
+            color: #593920;
+        }
+
+        .url-text:focus {
+            white-space: normal;
+            overflow: visible;
+        }
+
+        /* Styling the copy button */
+        .copy-btn {
+            background-color: #593920; /* Green button */
+            padding: 8px 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background-color: #664125; /* Slightly darker green on hover */
+        }
+
+        .copy-btn img {
+            width: 24px; /* Adjust size of the image */
+            height: 24px;
+            filter: invert(1);
+        }
+    </style>
     <script>
-        function copyCalendarLink() {
-            const calendarURL = "https://calendar.google.com/calendar/ical/0evc8qu50rq0r7dj5mm10t2vg0%40group.calendar.google.com/public/basic.ics"; // Replace with your actual calendar URL
-            navigator.clipboard.writeText(calendarURL).then(() => {
-                alert("📅 Link del calendario copiado al portapapeles!");
-                window.location.href = "https://linktr.ee/LaRaiz"; // Redirect back to Linktree
-            });
+        function copyInteres() {
+            const urlText = "https://calendar.google.com/calendar/ical/0evc8qu50rq0r7dj5mm10t2vg0%40group.calendar.google.com/public/basic.ics";
+            navigator.clipboard.writeText(urlText)
+                .then(function() {
+                    alert("📅 Link del calendario copiado al portapapeles!");
+                })
+                .catch(function(err) {
+                    console.error("❌ Error al copiar: ", err);
+                });
+        }
+        function copyCumple() {
+            const urlText = "https://calendar.google.com/calendar/ical/k7c5jklghr9o0788d6dp43a02o%40group.calendar.google.com/public/basic.ics";
+            navigator.clipboard.writeText(urlText)
+                .then(function() {
+                    alert("📅 Link del calendario copiado al portapapeles!");
+                })
+                .catch(function(err) {
+                    console.error("❌ Error al copiar: ", err);
+                });
+        }
+        function expandUrl() {
+            var urlField = document.getElementById("urlText");
+            urlField.select();
+            /*document.execCommand("copy");*/
         }
     </script>
 </head>
-<body onload="copyCalendarLink()">
-    <p>Copying calendar link...</p>
+<body>
+    <p style="font-size: x-large; font-weight: bold; text-align: center;">
+        Calendarios de La Raíz
+    </p>
+    <p>
+        ¿Quieres mantenerte al día con los eventos de La Raíz?<br>
+        Actualmente mantenemos dos calendarios para que puedas estar al tanto de todo lo que sucede en La Raíz.
+    </p>
+    <ul>
+        <li style="font-weight: bold;">Días sustentables y eventos de La Raíz
+            <p> Contiene días sustentables como el día del planeta, día del consumo responsable, entre otros, además de nuestros eventos, charlas, debates, y más.</p>
+        </li>
+        <li style="font-weight: bold;">Cumpleaños de La Raíz
+            <p> Este calendario contiene los cumpleaños de nuestros integrantes, celébralos con un cariñoso mensaje.</p>
+        </li>
+    </ul>
+    <p style="font-size: x-large; font-weight: bold; text-align: center;">
+        ¿Cómo suscribirse?
+    </p>
+    <p>
+        Para suscribirte primero debes copiar el link del calendario que te interesa:
+    </p>
+    <p style="font-weight: bold;">
+        Días sustentables y eventos de La Raíz
+    </p>
+
+    <div class="url-bubble">
+        <div class="url-container">
+            <input type="text" class="url-text" id="urlInteres" value="https://calendar.google.com/calendar/ical/0evc8qu50rq0r7dj5mm10t2vg0%40group.calendar.google.com/public/basic.ics" readonly onclick="expandUrl('urlInteres')">
+        </div>
+        <button class="copy-btn" onclick="copyInteres()">
+            <img src="img/clon.png" alt="Copy" title="Copiar URL">
+        </button>
+    </div>
+
+    <p style="font-weight: bold;">
+        Cumpleaños de La Raíz
+    </p>
+
+    <div class="url-bubble">
+        <div class="url-container">
+            <input type="text" class="url-text" id="urlCumple" value="https://calendar.google.com/calendar/ical/k7c5jklghr9o0788d6dp43a02o%40group.calendar.google.com/public/basic.ics" readonly onclick="expandUrl('urlCumple')">
+        </div>
+        <button class="copy-btn" onclick="copyCumple()">
+            <img src="img/clon.png" alt="Copy" title="Copiar URL">
+        </button>
+    </div>
+
+    <p>Después, dependiendo de la aplicación de calendarios que utilices, sigue las siguientes instrucciones:</p>
+
 </body>
 </html>
