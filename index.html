@@ -12,15 +12,15 @@
         p, ul {
             color: #f9f9f9;
             font-family: Verdana, sans-serif;
-            font-size:  large;
+            font-size:  small;
             text-align: justify;
-            margin-left: 50px;
-            margin-right: 50px;
+            margin-left: 5px;
+            margin-right: 5px;
         }
 
         li p {
             margin-left: 0;
-            font-size: medium;
+            font-size: small;
             font-weight: normal;
             margin-top: 10px;
         }
@@ -37,7 +37,7 @@
             background-color: #4CAF50; /* Green button */
             color: white;
             padding: 10px;
-            font-size: 16px;
+            font-size: small;
             border: none;
             cursor: pointer;
             width: 200px;
@@ -59,7 +59,7 @@
             width: fit-content;
             max-width: 100%;
             margin: 10px auto;
-            font-size: 16px;
+            font-size: small;
             font-family: Verdana, sans-serif;
             gap: 5px;
         }
@@ -75,7 +75,7 @@
         .url-text {
             border: none;
             background: none;
-            font-size: 16px;
+            font-size: small;
             cursor: text;
             width: 250px; /* Adjust width as needed */
             overflow: hidden;
@@ -130,15 +130,15 @@
                     console.error("❌ Error al copiar: ", err);
                 });
         }
-        function expandUrl() {
-            var urlField = document.getElementById("urlText");
+        function expandUrl(inputId) {
+            var urlField = document.getElementById(inputId);
             urlField.select();
             /*document.execCommand("copy");*/
         }
     </script>
 </head>
 <body>
-    <p style="font-size: x-large; font-weight: bold; text-align: center;">
+    <p style="font-size: medium; font-weight: bold; text-align: center;">
         Calendarios de La Raíz
     </p>
     <p>
@@ -153,7 +153,7 @@
             <p> Este calendario contiene los cumpleaños de nuestros integrantes, celébralos con un cariñoso mensaje.</p>
         </li>
     </ul>
-    <p style="font-size: x-large; font-weight: bold; text-align: center;">
+    <p style="font-size: medium; font-weight: bold; text-align: center;">
         ¿Cómo suscribirse?
     </p>
     <p>
@@ -187,5 +187,23 @@
 
     <p>Después, dependiendo de la aplicación de calendarios que utilices, sigue las siguientes instrucciones:</p>
 
+    <button class="dropdown-btn" onclick="toggleDropdown()">Click to Toggle Section</button>
+
+    <div class="dropdown-content">
+        <p>This section appears when the dropdown is clicked!</p>
+        <p>Here you can put additional content that will be shown when the dropdown unrolls.</p>
+    </div>
+
+    <script>
+        // Function to toggle visibility of the dropdown content
+        function toggleDropdown() {
+            var content = document.querySelector(".dropdown-content");
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block"; // Show the content
+            } else {
+                content.style.display = "none"; // Hide the content
+            }
+        }
+    </script>
 </body>
 </html>
