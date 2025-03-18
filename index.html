@@ -4,68 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendarios LR</title>
+    <link rel="icon" type="image/png" href="img/logo/logo2.png">
     <style>
         body {
             background-color:   #61b292;
         }
 
-        p, ul {
+        p {
             color: #f9f9f9;
             font-family: Verdana, sans-serif;
-            font-size:  small;
+            font-size:  normal;
             text-align: justify;
-            margin-left: 5px;
-            margin-right: 5px;
+            margin-left: 7px;
+            margin-right: 7px;
+        }
+
+        ul {
+            color: #f9f9f9;
+            font-family: Verdana, sans-serif;
+            font-size:  normal;
+            text-align: justify;
+            margin-left: -7px;
+            margin-right: 7px;
         }
 
         li p {
             margin-left: 0;
-            font-size: small;
+            font-size: normal;
             font-weight: normal;
             margin-top: 10px;
         }
-
-        .dropdown-content {
-            display: none; /* Hidden by default */
-            padding: 10px;
-            background-color: lightgray;
-            margin-top: 5px;
+        
+        .banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: url('img/misc/banner-bg.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
         
-        /* Optional: Styling for the button */
-        .dropdown-btn {
-            background-color: #4CAF50; /* Green button */
-            color: white;
-            padding: 10px;
-            font-size: small;
-            border: none;
-            cursor: pointer;
-            width: 200px;
-            text-align: center;
+        .body-content {
+            margin-top: 140px;
+        }
+        
+        .banner-logo {
+            position: absolute;
+            left: 30px;
+            width: 100px;
+            height: auto;
         }
 
-        /* Optional: Change button color on hover */
-        .dropdown-btn:hover {
-            background-color: #45a049;
+        /* Para dispositivos angostos */
+        @media (max-width: 768px) {
+            .banner {
+                height: 80px;
+            }
+            .body-content {
+                margin-top: 95px;
+            }
+            .banner-logo {
+                width: 70px;
+                left: 20px;
+            }
         }
-
-        /* Styling the "bubble" */
+        
         .url-bubble {
             display: flex;
             align-items: center;
             background-color: #f1e8a7;
             padding: 10px;
             border-radius: 17px;
-            width: fit-content;
-            max-width: 100%;
+            width: 80%;
+            max-width: 600px;
             margin: 10px auto;
-            font-size: small;
+            font-size: large;
             font-family: Verdana, sans-serif;
             gap: 5px;
         }
 
         .url-container {
-            position: relative;
+            flex-grow: 1;
             display: flex;
             align-items: center;
             background-color: transparent;
@@ -75,9 +98,9 @@
         .url-text {
             border: none;
             background: none;
-            font-size: small;
+            font-size: 12pt;
             cursor: text;
-            width: 250px; /* Adjust width as needed */
+            width: 100%;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -90,9 +113,8 @@
             overflow: visible;
         }
 
-        /* Styling the copy button */
         .copy-btn {
-            background-color: #593920; /* Green button */
+            background-color: #593920;
             padding: 8px 10px;
             border: none;
             border-radius: 10px;
@@ -100,13 +122,85 @@
         }
 
         .copy-btn:hover {
-            background-color: #664125; /* Slightly darker green on hover */
+            background-color: #664125; /* Slightly lighter on hover */
         }
 
         .copy-btn img {
-            width: 24px; /* Adjust size of the image */
+            width: 24px;
             height: 24px;
             filter: invert(1);
+        }
+
+        .toggle-bar {
+            background-color: #f1e8a7;
+            color: #593920;
+            padding: 15px;
+            font-family: Verdana, sans-serif;
+            font-size: 13pt;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 80%;
+            margin: 0 auto;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Puts text in center & arrow at the end */
+            padding-left: 20px;  /* Ensures text starts a bit inside */
+            padding-right: 20px; /* Ensures arrow stays inside */
+            margin-bottom: 10px;
+        }
+        
+        .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+        }
+        
+        .toggle-content {
+            display: none;
+            width: 80%;
+            margin: 10px auto;
+            padding: 15px;
+            background-color: #593920;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .toggle-content img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            max-width: 600px;
+        }
+        
+        .toggle-content.show {
+            display: block;
+        }
+        
+        .toggle-text {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .credits-bar {
+            width: 100%;
+            color: #f9f9f9;
+            text-align: center;
+            font-size: 10px;
+            padding: 5px 0;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .credits-bar p {
+            margin: 0;
+            display: inline-block;
         }
     </style>
     <script>
@@ -120,6 +214,7 @@
                     console.error("❌ Error al copiar: ", err);
                 });
         }
+
         function copyCumple() {
             const urlText = "https://calendar.google.com/calendar/ical/k7c5jklghr9o0788d6dp43a02o%40group.calendar.google.com/public/basic.ics";
             navigator.clipboard.writeText(urlText)
@@ -130,15 +225,27 @@
                     console.error("❌ Error al copiar: ", err);
                 });
         }
+
         function expandUrl(inputId) {
             var urlField = document.getElementById(inputId);
             urlField.select();
-            /*document.execCommand("copy");*/
+        }
+
+        function toggleDropdown(toggleBar) {
+            var content = toggleBar.nextElementSibling;
+            var arrow = toggleBar.querySelector(".arrow");
+            content.style.display = (content.style.display === "block") ? "none" : "block";
+            arrow.classList.toggle("rotate");
         }
     </script>
 </head>
 <body>
-    <p style="font-size: medium; font-weight: bold; text-align: center;">
+    <!-- Banner -->
+    <div class="banner">
+        <img src="img/logo/logo.png" alt="Logo" class="banner-logo">
+    </div>
+    <!-- Cuerpo -->
+    <p class="body-content" style="font-size: x-large; font-weight: bold; text-align: center;">
         Calendarios de La Raíz
     </p>
     <p>
@@ -153,57 +260,106 @@
             <p> Este calendario contiene los cumpleaños de nuestros integrantes, celébralos con un cariñoso mensaje.</p>
         </li>
     </ul>
-    <p style="font-size: medium; font-weight: bold; text-align: center;">
+    <p style="font-size: x-large; font-weight: bold; text-align: center;">
         ¿Cómo suscribirse?
     </p>
     <p>
         Para suscribirte primero debes copiar el link del calendario que te interesa:
     </p>
+    <!-- Calendario de eventos -->
     <p style="font-weight: bold;">
         Días sustentables y eventos de La Raíz
     </p>
-
     <div class="url-bubble">
         <div class="url-container">
             <input type="text" class="url-text" id="urlInteres" value="https://calendar.google.com/calendar/ical/0evc8qu50rq0r7dj5mm10t2vg0%40group.calendar.google.com/public/basic.ics" readonly onclick="expandUrl('urlInteres')">
         </div>
         <button class="copy-btn" onclick="copyInteres()">
-            <img src="img/clon.png" alt="Copy" title="Copiar URL">
+            <img src="img/misc/clon.png" alt="Copy" title="Copiar URL">
         </button>
     </div>
-
+    <!-- Calendario de Cumpleaños -->
     <p style="font-weight: bold;">
         Cumpleaños de La Raíz
     </p>
-
     <div class="url-bubble">
         <div class="url-container">
             <input type="text" class="url-text" id="urlCumple" value="https://calendar.google.com/calendar/ical/k7c5jklghr9o0788d6dp43a02o%40group.calendar.google.com/public/basic.ics" readonly onclick="expandUrl('urlCumple')">
         </div>
         <button class="copy-btn" onclick="copyCumple()">
-            <img src="img/clon.png" alt="Copy" title="Copiar URL">
+            <img src="img/misc/clon.png" alt="Copy" title="Copiar URL">
         </button>
     </div>
-
     <p>Después, dependiendo de la aplicación de calendarios que utilices, sigue las siguientes instrucciones:</p>
-
-    <button class="dropdown-btn" onclick="toggleDropdown()">Click to Toggle Section</button>
-
-    <div class="dropdown-content">
-        <p>This section appears when the dropdown is clicked!</p>
-        <p>Here you can put additional content that will be shown when the dropdown unrolls.</p>
+    <!-- Toggle google -->
+    <div class="toggle-bar" onclick="toggleDropdown(this)">
+        <span class="toggle-text">Google Calendar</span>
+        <span class="arrow">▼</span>
+    </div>
+    <div class="toggle-content">
+        <p style="font-size: small;">
+            Desde el computador, ingresa a Google Calendar y en la barra lateral izquierda debes presionar en el botón + "Agregar otros calendarios".
+        </p>
+        <img src="img/google/paso1_google.png" alt="Seleccionar ' + Agregar otros calendarios'" title="Paso 2 Google Calendar">
+        <p style="font-size: small;">
+            Luego en el menú que se despliega debes presionar en "Desde una URL".
+        </p>
+        <img src="img/google/paso2_google.png" alt="Seleccionar 'Desde una URL'" title="Paso 2 Google Calendar">
+        <p style="font-size: small;">
+            Posteriormente debes pegar en enlace del calendario que quieras agregar.
+        </p>
+        <img src="img/google/paso3_google.png" alt="Pegar la URL seleccionada y presionar en 'Agregar calendario'" title="Paso 3 Google Calendar" style="width: 85%; max-width: 800px;">
+        <p style="font-size: small;">
+            Finalmente, debes presionar en "Agregar calendario" y el calendario debería aparecer entre los calendarios disponibles para visualizar.
+        </p>
     </div>
 
-    <script>
-        // Function to toggle visibility of the dropdown content
-        function toggleDropdown() {
-            var content = document.querySelector(".dropdown-content");
-            if (content.style.display === "none" || content.style.display === "") {
-                content.style.display = "block"; // Show the content
-            } else {
-                content.style.display = "none"; // Hide the content
-            }
-        }
-    </script>
+    <!-- Toggle Outlook -->
+    <div class="toggle-bar" onclick="toggleDropdown(this)">
+        <span class="toggle-text">Outlook Calendar</span>
+        <span class="arrow">▼</span> 
+    </div>
+    <div class="toggle-content">
+        <p style="font-size: small;">
+            Desde el computador, ingresa a Outlook Calendar y en la barra lateral izquierda debes presionar en "Agregar calendario".
+        </p>
+        <img src="img/outlook/paso1_outlook.png" alt="Seleccionar 'Agregar calendario'" title="Paso 1 Outlook Calendar">
+        <p style="font-size: small;">
+            Luego en el menú que se despliega debes presionar en "Suscribirse desde la web".
+        </p>
+        <img src="img/outlook/paso2_outlook.png" alt="Seleccionar 'Suscribirse desde la web'" title="Paso 2 Outlook Calendar">
+        <p style="font-size: small;">
+            Posteriormente debes pegar en enlace del calendario que quieras agregar y asignarle un nombre, también puedes seleccionar otros ajustes de personalización de tu gusto.
+        </p>
+        <img src="img/outlook/paso3_outlook.png" alt="Pegar la URL seleccionada y asignarle un nombre, posteriormente presionar en 'Importar'" title="Paso 3 Outlook Calendar" style="width: 85%; max-width: 800px;">
+        <p style="font-size: small;">
+            Finalmente, debes presionar en "Importar" y el calendario debería aparecer entre los calendarios disponibles para visualizar.
+        </p>
+    </div>
+    <!-- Toggle iCal -->
+    <div class="toggle-bar" onclick="toggleDropdown(this)">
+        <span class="toggle-text">iCalendar</span>
+        <span class="arrow">▼</span>
+    </div>
+    <div class="toggle-content">
+        <p style="font-size: small;">
+            En la aplicación "Calendario", en la sección inferior, debes presionar en "Calendarios".
+        </p>
+        <img src="img/ios/paso1_iOS.png" alt="Seleccionar 'Calendarios'" title="Paso 1 iCalendar">
+        <p style="font-size: small;">
+            Luego en el menú que se despliega debes presionar en "Agregar calendario" y posteriormente en "Agregar calendario de suscripción".
+        </p>
+        <img src="img/ios/paso2_iOS.png" alt="Seleccionar 'Agregar calendario' y luego 'Agregar calendario de suscripción'" title="Paso 2 iCalendar">
+        <p style="font-size: small;">
+            Posteriormente debes pegar en enlace del calendario que quieras agregar y asignarle un nombre, también puedes seleccionar otros ajustes de personalización de tu gusto.
+        </p>
+        <img src="img/ios/paso3_iOS.png" alt="Pegar la URL seleccionada y presionar en 'Suscribirse'" title="Paso 3 iCalendar" style="width: 60%; max-width: 800px;">
+        <p style="font-size: small;">
+            Finalmente, debes presionar en "Suscribirse" y el calendario debería aparecer entre los calendarios disponibles para visualizar.
+        </p>
+    </div>
+    <div class="credits-bar">
+        <p>Hecho con 💚 por @vcnt.3 | Directiva La Raíz 2025</p>
+    </div>
 </body>
 </html>
